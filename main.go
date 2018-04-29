@@ -20,16 +20,8 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 		r := gin.Default()
 		v := r.Group("/")
 		{
-			v.POST("test", func(c *gin.Context) {
-				c.JSON(200, gin.H{
-					"message": "post",
-				})
-			})
-			v.GET("test", func(c *gin.Context) {
-				c.JSON(200, gin.H{
-					"message": "get",
-				})
-			})
+			v.POST("test", postTest)
+			v.GET("test", getTest)
 		}
 
 		ginLambda = ginadapter.New(r)
@@ -42,4 +34,16 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 
 func main() {
 	lambda.Start(Handler)
+}
+
+func postTest(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "post",
+	})
+}
+
+func getTest(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "get",
+	})
 }
