@@ -15,6 +15,7 @@ var initialized = false
 var ginLambda *ginadapter.GinLambda
 
 func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	gin.SetMode(gin.ReleaseMode)
 
 	if !initialized {
 		// stdout and stderr are sent to AWS CloudWatch Logs
@@ -22,8 +23,8 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 		r := gin.Default()
 		v := r.Group("/")
 		{
-			v.POST("test", PostTest)
-			v.GET("test", GetTest)
+			v.POST("test", PostSample)
+			v.GET("test", GetSample)
 		}
 
 		ginLambda = ginadapter.New(r)
