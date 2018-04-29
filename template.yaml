@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple CRUD webservice.
+Resources:
+  ApiPOST:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: go
+      Runtime: go1.x
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /test
+            Method: POST
+  ApiGET:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: go
+      Runtime: go1.x
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /test
+            Method: GET
