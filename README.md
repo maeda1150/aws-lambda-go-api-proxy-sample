@@ -48,6 +48,20 @@ $ sam validate
 $ sam local start-api
 ```
 
+* post localhost
+
+get
+
+```
+$ curl 'http://127.0.0.1:3000/test?hoge=fuga'
+```
+
+post
+
+```
+$ curl -XPOST 'http://127.0.0.1:3000/test' -H "Content-Type: application/json" -d '{"hoge":"fuga"}'
+```
+
 * make s3 bucket
 
 ```
