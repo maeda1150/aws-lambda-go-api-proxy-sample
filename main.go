@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	. "./controllers"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/awslabs/aws-lambda-go-api-proxy/gin"
@@ -20,8 +22,8 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 		r := gin.Default()
 		v := r.Group("/")
 		{
-			v.POST("test", postTest)
-			v.GET("test", getTest)
+			v.POST("test", PostTest)
+			v.GET("test", GetTest)
 		}
 
 		ginLambda = ginadapter.New(r)
@@ -34,16 +36,4 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 
 func main() {
 	lambda.Start(Handler)
-}
-
-func postTest(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "post",
-	})
-}
-
-func getTest(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "get",
-	})
 }
