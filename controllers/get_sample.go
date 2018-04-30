@@ -7,9 +7,10 @@ import (
 func GetSample(c *gin.Context) {
 	params := c.Query("hoge")
 	token := c.Query("token")
-	c.JSON(200, gin.H{
-		"message": "get",
-		"params":  params,
-		"token":   token,
-	})
+	//c.JSON(200, gin.H{
+	//	"message": "get",
+	//	"params":  params,
+	//	"token":   token,
+	//})
+	c.String(200, "`"+params+token+"`")
 }
