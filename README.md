@@ -21,7 +21,7 @@ $ docker run --rm -tiv `pwd`:/go/src/aws-lambda-go-api-proxy-sample aws-lambda-g
 $ docker run --rm -tiv (pwd):/go/src/aws-lambda-go-api-proxy-sample aws-lambda-go-api-proxy-sample_lambdaapi
 ```
 
-* build bin(in container)
+* build binary(in container)
 
 ```
 $ GOOS=linux GOARCH=amd64 go build -o api .
@@ -53,17 +53,19 @@ $ sam local start-api
 
 * post localhost
 
-get
+  * get
 
-```
-$ curl 'http://127.0.0.1:3000/test?hoge=fuga'
-```
+  ```
+  $ curl 'http://127.0.0.1:3000/test?hoge=fuga'
+  ```
 
-post
+  * post
 
-```
-$ curl -XPOST 'http://127.0.0.1:3000/test' -H "Content-Type: application/json" -d '{"hoge":"fuga"}'
-```
+  ```
+  $ curl -XPOST 'http://127.0.0.1:3000/test' -H "Content-Type: application/json" -d '{"hoge":"fuga"}'
+  ```
+
+## Deployment
 
 * make s3 bucket
 
@@ -83,15 +85,26 @@ $ sam package --template-file template.yaml --s3-bucket sum-lambda --output-temp
 $ aws cloudformation deploy --template-file package.yaml --stack-name lambdaapi --capabilities CAPABILITY_IAM
 ```
 
-* test api
+## Test deployed api
+
+* get apigateway id
 
 ```
-$ curl -XPOST https://xxxxxxxx.ap-northeast-1.amazonaws.com/Prod/test
+$ aws apigateway get-rest-apis --output json --query 'items[?name==`lambdaapi`].id'
 ```
 
-```
-$ curl -XGET https://xxxxxxxxx.ap-northeast-1.amazonaws.com/Prod/test
-```
+* post api
 
+  * get
+
+  ```
+  $ curl 'https://{{id}}.execute-api.ap-northeast-1.amazonaws.com/Prod/test?hoge=fuga'
+  ```
+
+  * post
+
+  ```
+  $ curl -XPOST 'https://{{id}}.execute-api.ap-northeast-1.amazonaws.com/Prod/test' -H "Content-Type: application/json" -d '{"hoge":"fuga"}'
+  ```
 
 REF: https://github.com/awslabs/aws-lambda-go-api-proxy
