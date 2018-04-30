@@ -1,9 +1,8 @@
 package main
 
 import (
+	"aws-lambda-go-api-proxy-sample/controllers"
 	"log"
-
-	. "./controllers"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -20,11 +19,11 @@ func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse,
 	if !initialized {
 		// stdout and stderr are sent to AWS CloudWatch Logs
 		log.Printf("Gin cold start")
-		r := gin.Default()
+		r := gin.New()
 		v := r.Group("/")
 		{
-			v.POST("test", PostSample)
-			v.GET("test", GetSample)
+			v.POST("test", controllers.PostSample)
+			v.GET("test", controllers.GetSample)
 		}
 
 		ginLambda = ginadapter.New(r)

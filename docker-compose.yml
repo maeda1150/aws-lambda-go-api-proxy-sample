@@ -1,0 +1,11 @@
+version: '3'
+services:
+  lambdaapi:
+    build: .
+    volumes:
+      - .:/go/src/aws-lambda-go-api-proxy-sample/
+      - share:/go/bin
+      - share:/go/src/github.com
+
+volumes:
+  share:

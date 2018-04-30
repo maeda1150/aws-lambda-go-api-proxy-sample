@@ -6,22 +6,25 @@
 
 ## Development
 
+* provisioning
+
+```
+$ docker-compose build
+```
+
 * development on golang-vim-dev
 
 ```
-$ docker run --rm -tiv (pwd):/go masaki1111/golang-vim-dev
-```
+$ docker run --rm -tiv `pwd`:/go/src/aws-lambda-go-api-proxy-sample aws-lambda-go-api-proxy-sample_lambdaapi
 
-* get lib(in container)
-
-```
-$ go get -t -d -v ./...
+# fish shell
+$ docker run --rm -tiv (pwd):/go/src/aws-lambda-go-api-proxy-sample aws-lambda-go-api-proxy-sample_lambdaapi
 ```
 
 * build bin(in container)
 
 ```
-$ GOOS=linux GOARCH=amd64 go build
+$ GOOS=linux GOARCH=amd64 go build -o api .
 ```
 
 * invoke lambda on local

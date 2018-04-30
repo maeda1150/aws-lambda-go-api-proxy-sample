@@ -5,7 +5,7 @@ Resources:
   ApiPOST:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: go
+      Handler: api
       Runtime: go1.x
       Events:
         GetResource:
@@ -16,7 +16,7 @@ Resources:
   ApiGET:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: go
+      Handler: api
       Runtime: go1.x
       Events:
         GetResource:
